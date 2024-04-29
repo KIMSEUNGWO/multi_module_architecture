@@ -10,9 +10,8 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Table(name = "WEATHER_DATE")
-@SequenceGenerator(name = "SEQ_WEATHER_DATE", sequenceName = "SEQ_WEATHER_DATE_ID", allocationSize = 1)
 public class WeatherDate {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_WEATHER_DATE")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long weatherDateId;
 
     @Getter

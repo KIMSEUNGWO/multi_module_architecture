@@ -12,10 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 @Table(name = "WEATHER")
-@SequenceGenerator(name = "SEQ_WEATHER", sequenceName = "SEQ_WEATHER_ID", allocationSize = 1)
 public class Weather {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_WEATHER")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long weatherId;
 
     @ManyToOne(fetch = FetchType.LAZY)
