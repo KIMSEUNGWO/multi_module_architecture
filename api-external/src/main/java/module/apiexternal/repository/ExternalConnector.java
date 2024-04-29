@@ -1,4 +1,4 @@
-package module.apiexternal;
+package module.apiexternal.repository;
 
 import java.net.URISyntaxException;
 

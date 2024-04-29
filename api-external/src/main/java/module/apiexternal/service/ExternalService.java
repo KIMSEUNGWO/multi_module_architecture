@@ -3,7 +3,7 @@ package module.apiexternal.service;
 import module.apicommon.enums.ErrorCode;
 import module.apicommon.exceptions.DataException;
 import module.apicommon.exceptions.NotFoundDataException;
-import module.apiexternal.ExternalConnector;
+import module.apiexternal.repository.ExternalConnector;
 import module.apiexternal.dto.ResponseJsonItem;
 import module.apiexternal.json.JsonData;
 import module.apiexternal.json.JsonItem;

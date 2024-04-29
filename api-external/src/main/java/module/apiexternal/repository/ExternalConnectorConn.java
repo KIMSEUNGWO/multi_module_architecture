@@ -1,7 +1,6 @@
-package module.apiexternal;
+package module.apiexternal.repository;
 
 import module.apiexternal.component.CustomTemplate;
-import module.apiexternal.json.JsonData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
