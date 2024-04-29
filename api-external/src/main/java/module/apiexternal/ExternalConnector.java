@@ -1,10 +1,8 @@
 package module.apiexternal;
 
-import module.apiexternal.json.JsonData;
-
 import java.net.URISyntaxException;
 
 public interface ExternalConnector {
 
-    JsonData getJsonData(String date) throws URISyntaxException;
+    <T> T getJsonData(String date, Class<T> clazz) throws URISyntaxException;
 }

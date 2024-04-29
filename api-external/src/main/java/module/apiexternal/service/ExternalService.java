@@ -21,7 +21,7 @@ public class ExternalService {
     private final ExternalConnector externalConnector;
 
     public List<ResponseJsonItem> getJsonData(String requestData) throws DataException, NotFoundDataException, URISyntaxException {
-        JsonData body = externalConnector.getJsonData(requestData);
+        JsonData body = externalConnector.getJsonData(requestData, JsonData.class);
         jsonDataValid(body);
         return convertJsonItem(body.getItemList());
     }
