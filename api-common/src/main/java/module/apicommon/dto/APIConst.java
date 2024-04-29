@@ -4,6 +4,8 @@ public abstract class APIConst {
 
     public static final String PROJECT_NAME = "demo";
     public static final String VERSION = "v1";
+    public static final String GET_URI = "get";
+    public static final String POST_URI = "post";
     public static final String OK = "OK";
     public static final String REQUEST_DATA_NAME = "date";
 

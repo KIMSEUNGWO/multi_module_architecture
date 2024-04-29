@@ -1,14 +1,12 @@
 package module.apiexternal;
 
-import module.apicommon.dto.DateConverter;
 import module.apicommon.dto.ResponseData;
 import module.apicommon.dto.ResponseMessage;
-import module.apicommon.enums.Category;
 import module.apicommon.exceptions.DataException;
 import module.apicommon.exceptions.NotFoundDataException;
+import module.apiexternal.dto.DataFormatter;
 import module.apiexternal.dto.ResponseJsonItem;
 import module.apiexternal.service.ExternalService;
-import module.apiinternal.domain.Weather;
 import module.apiinternal.dto.DataBinder;
 import module.apiinternal.service.InternalService;
 import module.apiexternal.dto.RequestDto;
@@ -29,14 +27,13 @@ public class Controller {
 
     private final ExternalService externalService;
     private final InternalService internalService;
-
     /**
      * 데이터(date = 20241231) 를 요청받으면 해당하는 날짜의 날씨예보 데이터를 반환
      * @param requestData : RequestParam 으로 데이터를 전송받음.
      * @return 요청받은 날짜에 데이터가 존재하면 예보데이터와 함께 HttpStatus 202 반환
      * @throws NotFoundDataException : 데이터가 존재하지 않으면 HttpStatus 204 반환
      */
-    @GetMapping("/get")
+    @GetMapping("/" + GET_URI)
     public ResponseEntity<ResponseMessage> findWeatherData(RequestDto requestData) throws NotFoundDataException {
 
         List<ResultData> resultData = internalService.findData(requestData.getDate());
@@ -52,29 +49,16 @@ public class Controller {
      * @throws NotFoundDataException 데이터(date = 20241231)로 단기예보 API 에서 조회한 결과가 존재하지않으면 HttpStatus 204 반환
      * @throws URISyntaxException 단기예보 API 요청주소가 올바르지 않으면 발생하는 내부예외
      */
-    @PostMapping("/post")
+    @PostMapping("/" + POST_URI)
     public ResponseEntity<ResponseMessage> externalApiData(@ModelAttribute(REQUEST_DATA_NAME) RequestDto requestData) throws DataException, NotFoundDataException, URISyntaxException {
 
         List<ResponseJsonItem> jsonDataList = externalService.getJsonData(requestData.getDate());
 
-        DataBinder binder = createDataBinder(jsonDataList);
+        DataBinder binder = DataFormatter.dataBinding(jsonDataList);
 
         internalService.saveData(binder);
 
         return ResponseEntity.ok(new ResponseMessage(OK, SUCCESS_SAVE_DATA));
     }
 
-    private DataBinder createDataBinder(List<ResponseJsonItem> jsonDataList) {
-        DataBinder dataBinder = new DataBinder();
-
-        for (ResponseJsonItem item : jsonDataList) {
-            String date = DateConverter.format(item.getFcstDate(), item.getFcstTime());
-            Weather build = Weather.builder()
-                .category(Category.valueOf(item.getCategory()))
-                .dataValue(item.getFcstValue())
-                .build();
-            dataBinder.put(date, build);
-        }
-        return dataBinder;
-    }
 }
