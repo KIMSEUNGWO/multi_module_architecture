@@ -1,0 +1,72 @@
+buildscript {
+	ext {
+		springBootVersion = '3.2.5'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:3.2.5")
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+	}
+}
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	group = 'api'
+	version = '1.0'
+	sourceCompatibility = '17'
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	}
+}
+
+project(":api-server") {
+	dependencies {
+		implementation project(":api-application")
+		implementation project(":api-common")
+		implementation project(":api-internal")
+	}
+}
+
+project(":api-common") {
+	dependencies {
+
+	}
+}
+
+project(":api-application") {
+	dependencies {
+		implementation project(":api-common")
+		implementation project(":api-internal")
+		implementation project(":api-external")
+
+	}
+}
+
+project(":api-external") {
+	dependencies {
+		implementation project(":api-common")
+
+	}
+}
+
+project(":api-internal") {
+	dependencies {
+		implementation project(":api-common")
+		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+		runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
+
+	}
+}

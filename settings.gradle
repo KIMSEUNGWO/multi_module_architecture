@@ -1,0 +1,6 @@
+rootProject.name = 'multi-module'
+include 'api-application'
+include 'api-external'
+include 'api-internal'
+include 'api-common'
+include 'api-server'
