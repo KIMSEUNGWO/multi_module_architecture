@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.PropertySource;
 
-@PropertySource(value = {"classpath:application.properties", "classpath:application-internal.properties"})
+@PropertySource(value = {"classpath:application.properties", "classpath:application-internal.properties", "classpath:application-external.properties"})
 @EntityScan("module")
-@SpringBootApplication(scanBasePackages = {"module"})
+@SpringBootApplication(scanBasePackages = "module")
 public class ApiServerApplication {
 
     public static void main(String[] args) {
