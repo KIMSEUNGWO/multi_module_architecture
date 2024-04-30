@@ -49,7 +49,14 @@
     ├─ build.gradle
     └─ settings.gradle
 
-<img src="https://github.com/KIMSEUNGWO/Room_Project/assets/128001994/1d27a7fd-fcc4-42fb-9599-0dfca00162da" style="height:300px;" alt="도식"/>
+<p align="center">
+    <img src="https://github.com/KIMSEUNGWO/Room_Project/assets/128001994/1d27a7fd-fcc4-42fb-9599-0dfca00162da" style="height:300px;" alt="도식"/>
+</p>
+
+### ERD 설계
+<p align="center">
+  <img src="https://github.com/KIMSEUNGWO/multi_module_architecture/assets/128001994/5b26659b-ea7b-4287-9fd8-4fbdc851913e" style="width: 70%" alt="ERD"/>
+</p>
 
 ### 예외처리
 
@@ -59,11 +66,26 @@ RestControllerAdvice : ```ExceptionHandlerController```
 
 ```NotFoundDataException``` : 외부API 조회결과 데이터가 존재하지 않은경우, DB에 해당 날짜의 데이터가 존재하지 않은경우 ```HTTP_STATUS : 204 NO_CONTENT``` 를 반환한다.
 
-단기예보API 내부 예외코드는 ```ErrorCode``` enum 에 정의되어있다.
+```ErrorCode enum``` : 단기예보API 내부 예외코드
+
+
+### 요청객체
+
+데이터의 Request 는 ```RequestDto``` 객체가 담당한다.
+
+요청데이터가 null인경우 default 값인 현재일 기준 이전 날을 데이터로 사용한다.
+
+요청데이터가 형식과 일치하지 않거나, 현재일 기준 3일전 또는 이후라면 ```DataException``` 이 발생한다.
+
+```
+    {
+        "date" : "20241231" // yyyyMMdd String
+    }
+```
 
 ### 응답객체
 
-모든 데이터의 Response 는 ```ResponseMessage``` 객체를 사용한다.
+데이터의 Response 는 ```ResponseMessage``` 객체를 사용한다.
 
 ```
     {
@@ -89,22 +111,17 @@ RestControllerAdvice : ```ExceptionHandlerController```
 
 - POST 요청 시 공공테이터 포탈 API에서 데이터를 조회하여 DB에 저장해야한다.
 
-**POST** /demo/v1/post
+#### POST /demo/v1/post
 
-Content-Type: application/json
+#### Content-Type: application/json
 ```
     {
         "date" : "20241231"
     }
 ```
 
-<br>
-
 <details>
-    <summary>과제1 설명</summary>
-
-요청데이터와 검증은 ```RequestDto``` class 가 담당합니다.
-사용자로부터 date 값을 요청받는다. 요청데이터가 null인경우 현재일 기준 이전 날이 입력됩니다.
+    <summary><strong>과제1 설명</strong></summary>
 
 
 ```
@@ -140,10 +157,59 @@ RestTemplate 을 ```CustomTemplate``` class 로 감싸고 Bean으로 등록시�
 제네릭을 사용한 이유는 외부에서 타입을 주입 받음으로써 객체 간의 결합도를 낮추고,
 요청 uri, 반환타입이 변경에 수정없이 대응할 수 있기 때문에 사용했습니다.
 
-
 조회 결과는 ```JsonData```class에 담겨 Controller로 반환됩니다.
 
-단기예보API 내부 예외코드는 ```ErrorCode``` enum 에 정의 되어있으며, 조회결과의 errorCode를 확인하고 그에 맞는
-코드와 함께 DataException이 발생합니다.
+이 과정에서 단기예보API 내부예외가 발생한 경우 ```DataException```, 요청한 데이터가 없다면 ```NotFountDataException``` 이 발생합니다.
 
+```api-external``` 모듈의 객체를 바인딩 하고 ```api-internal``` 모듈로 이동합니다.
+
+JPA로 데이터를 저장합니다.
+
+</details>
+
+<br>
+
+### 과제 2.
+
+- GET 요청 시 DB에 저장된 데이터를 조회한다. 데이터가 없을 경우 ```HTTP STATUS 204``` 를 반환한다.
+
+#### GET /demo/v1/get?date=20241231
+
+<details>
+    <summary><strong>과제2 설명</strong></summary>
+
+사용자로부터 요청받은 날짜를 DB에서 조회합니다.
+
+데이터가 존재하지 않으면, ```NotFountDataException``` 이 발생하고 ExceptionHandler에 의해 HTTP STATUS 204를 반환합니다.
+
+데이터 조회 완료 예시
+
+```
+{
+    "result": "OK",
+    "message": "조회성공",
+    "data": [
+        {
+            "date": "2024-04-29 06:00",
+            "detailData": [
+                "1시간 기온 : 15℃",
+                "풍속(동서성분) : -1.8m/s",
+                "풍속(남북성분) : -0.9m/s",
+                "풍향 : 65deg",
+                "풍속 : 2.1m/s",
+                "하늘상태 : 흐림",
+                "강수형태 : 없음",
+                "강수확률 : 30%",
+                "파고 : 0m",
+                "1시간 강수량 : 강수없음",
+                "습도 : 75%",
+                "1시간 신적설 : 적설없음"
+            ]
+        },
+        {
+          ...
+        }
+    ]
+}
+```
 </details>
