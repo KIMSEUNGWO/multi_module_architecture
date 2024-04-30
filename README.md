@@ -1,5 +1,12 @@
 # Bigs Back-End 개발자 과제 - 김승우
 
+## API 문서
+
+|                 HTTP METHOD                  |   HTTP URI    |     HEADER      |      BODY       |
+|:--------------------------------------------:|:-------------:|:---------------:|:---------------:|
+| <strong style="color:steelblue">GET</strong> | /demo/v1/get  | date : 20241231 |        -        |
+|  <strong style="color:green">POST</strong>   | /demo/v1/post |        -        | date : 20241231 |
+
 <br>
 
 ## 개발환경
@@ -79,7 +86,7 @@ RestControllerAdvice : ```ExceptionHandlerController```
 
 <br><br>
 
-### 요청객체
+### Request
 
 데이터의 Request 는 ```RequestDto``` 객체가 담당한다.
 
@@ -95,7 +102,7 @@ RestControllerAdvice : ```ExceptionHandlerController```
 
 <br><br>
 
-### 응답객체
+### Response
 
 데이터의 Response 는 ```ResponseMessage``` 객체를 사용한다.
 
@@ -135,7 +142,7 @@ RestControllerAdvice : ```ExceptionHandlerController```
 
 <details>
     <summary><strong>과제1 설명</strong></summary>
-
+<br>
 
 ```
 @Component
@@ -178,6 +185,15 @@ RestTemplate 을 ```CustomTemplate``` class 로 감싸고 Bean으로 등록시�
 
 JPA로 데이터를 저장합니다.
 
+정상흐름 예시
+
+```
+{
+    "result": "OK",
+    "message": "정상적으로 저장되었습니다."
+}
+```
+
 </details>
 
 <br><br>
@@ -190,6 +206,7 @@ JPA로 데이터를 저장합니다.
 
 <details>
     <summary><strong>과제2 설명</strong></summary>
+<br>
 
 사용자로부터 요청받은 날짜를 DB에서 조회합니다.
 
