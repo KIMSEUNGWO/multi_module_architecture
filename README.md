@@ -1,5 +1,7 @@
 # Bigs Back-End 개발자 과제 - 김승우
 
+<br>
+
 ## 개발환경
 
 - JAVA 17
@@ -8,6 +10,7 @@
 - MySQL
 - 라이브러리 : Lombok, MapStruct 1.5.3
 
+<br><br><br>
 
 ## 요청사항
 
@@ -34,9 +37,11 @@
 - 코드는 가독성이 좋아야한다.
 - 멀티모듈로 구성하고, 모듈은 최대한 작고, 응집도가 높아야한다.
 
-
+<br><br><br>
 
 ## 개발과정
+
+<br>
 
 ### 멀티모듈 환경 설정
     root
@@ -53,10 +58,14 @@
     <img src="https://github.com/KIMSEUNGWO/Room_Project/assets/128001994/1d27a7fd-fcc4-42fb-9599-0dfca00162da" style="height:300px;" alt="도식"/>
 </p>
 
+<br><br>
+
 ### ERD 설계
 <p align="center">
   <img src="https://github.com/KIMSEUNGWO/multi_module_architecture/assets/128001994/5b26659b-ea7b-4287-9fd8-4fbdc851913e"alt="ERD"/>
 </p>
+
+<br><br>
 
 ### 예외처리
 
@@ -68,6 +77,7 @@ RestControllerAdvice : ```ExceptionHandlerController```
 
 ```ErrorCode enum``` : 단기예보API 내부 예외코드
 
+<br><br>
 
 ### 요청객체
 
@@ -82,6 +92,8 @@ RestControllerAdvice : ```ExceptionHandlerController```
         "date" : "20241231" // yyyyMMdd String
     }
 ```
+
+<br><br>
 
 ### 응답객체
 
@@ -106,6 +118,7 @@ RestControllerAdvice : ```ExceptionHandlerController```
     }
 ```
 
+<br><br>
 
 ### 과제 1.
 
@@ -167,7 +180,7 @@ JPA로 데이터를 저장합니다.
 
 </details>
 
-<br>
+<br><br>
 
 ### 과제 2.
 
@@ -213,3 +226,6 @@ JPA로 데이터를 저장합니다.
 }
 ```
 </details>
+
+
+<br><br><br>
