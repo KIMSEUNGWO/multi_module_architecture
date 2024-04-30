@@ -1,10 +1,10 @@
 package module.apiinternal;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootTest
-class ApiInternalApplicationTests {
+@SpringBootApplication
+public class ApiInternalApplicationTests {
 
     @Test
     void contextLoads() {
