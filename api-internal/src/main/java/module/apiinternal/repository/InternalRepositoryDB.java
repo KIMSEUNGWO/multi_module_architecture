@@ -34,7 +34,7 @@ public class InternalRepositoryDB implements InternalRepository {
     @Override
     @Transactional(readOnly = true)
     public List<WeatherDate> findAll(LocalDateTime dateTime) {
-        LocalDateTime endDate = dateTime.plusHours(23);
+        LocalDateTime endDate = dateTime.plusDays(1);
         return jpaWeatherDateRepository.findAllByDateTimeBetween(dateTime, endDate);
     }
 
