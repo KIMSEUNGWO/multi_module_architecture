@@ -35,6 +35,12 @@ public enum ErrorCode {
 
 
     public static ErrorCode getCode(String resultCode) {
-        return valueOf(String.format("C%s", resultCode));
+        String findName = String.format("C%s", resultCode);
+
+        ErrorCode[] values = values();
+        for (ErrorCode value : values) {
+            if (value.name().equals(findName)) return value;
+        }
+        return C99;
     }
 }
