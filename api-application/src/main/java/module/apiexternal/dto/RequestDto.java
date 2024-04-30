@@ -6,6 +6,9 @@ import module.apicommon.exceptions.DataException;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Getter
 @ToString
 public class RequestDto {
@@ -13,13 +16,18 @@ public class RequestDto {
     private final String date;
 
     public RequestDto(String date) throws DataException {
+        if (date == null) {
+            LocalDateTime dateTime = LocalDateTime.now().minusDays(1);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+            date = dateTime.format(formatter);
+        }
         validDate(date);
         this.date = date;
     }
 
     public void validDate(String date) throws DataException {
         // 문자열 검증
-        if (isNaN(date) || date.length() != 8) {
+        if (date == null || isNaN(date) || date.length() != 8) {
             throw new DataException(ErrorCode.C101);
         }
 
@@ -30,7 +38,7 @@ public class RequestDto {
     }
 
     private boolean isNaN(String date) {
-        if (date == null || date.isBlank()) return true;
+        if (date.isBlank()) return true;
         for (int i = 0; i < date.length(); i++) {
             if (Character.isAlphabetic(date.charAt(i))) return true;
         }
