@@ -27,8 +27,31 @@ public enum Category {
 
     public String combineValue(String dataValue) {
         if (dataValue.contains("없음")) {
-            return String.format("%s %s", content, dataValue);
+            return String.format("%s : %s", content, dataValue);
         }
-        return String.format("%s %s%s", content, dataValue, unit);
+        dataValue =
+            (this == SKY) ? getSkyStatus(dataValue) :
+            (this == PTY) ? getPtyStatus(dataValue) :
+            dataValue;
+        return String.format("%s : %s%s", content, dataValue, unit);
+    }
+    private String getPtyStatus(String dataValue) {
+        return switch (dataValue) {
+            case "0" -> "없음";
+            case "1" -> "비";
+            case "2" -> "비/눈";
+            case "3" -> "눈";
+            case "4" -> "소나기";
+            default -> dataValue;
+        };
+    }
+
+    private String getSkyStatus(String dataValue) {
+        return switch (dataValue) {
+            case "1" -> "맑음";
+            case "3" -> "구름많음";
+            case "4" -> "흐림";
+            default -> dataValue;
+        };
     }
 }
