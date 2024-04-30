@@ -1,7 +1,9 @@
-package module.apiexternal.config;
+package module.apiexternal;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApiExternalTestConfiguration {
+public class ApiExternalTestApplication {
+
+
 }

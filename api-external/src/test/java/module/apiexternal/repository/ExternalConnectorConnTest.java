@@ -1,10 +1,8 @@
-package module.apiexternal;
+package module.apiexternal.repository;
 
+import module.apiexternal.ApiExternalTestApplication;
 import module.apiexternal.component.CustomTemplate;
-import module.apiexternal.config.ApiExternalTestConfiguration;
 import module.apiexternal.json.JsonData;
-import module.apiexternal.repository.ExternalConnector;
-import module.apiexternal.repository.ExternalConnectorConn;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,7 +14,7 @@ import java.net.URISyntaxException;
 
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = ApiExternalTestConfiguration.class)
+@SpringBootTest(classes = ApiExternalTestApplication.class)
 class ExternalConnectorConnTest {
 
 
