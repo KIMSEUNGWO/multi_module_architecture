@@ -55,7 +55,7 @@
 
 ### ERD 설계
 <p align="center">
-  <img src="https://github.com/KIMSEUNGWO/multi_module_architecture/assets/128001994/5b26659b-ea7b-4287-9fd8-4fbdc851913e" style="width: 70%" alt="ERD"/>
+  <img src="https://github.com/KIMSEUNGWO/multi_module_architecture/assets/128001994/5b26659b-ea7b-4287-9fd8-4fbdc851913e"alt="ERD"/>
 </p>
 
 ### 예외처리
