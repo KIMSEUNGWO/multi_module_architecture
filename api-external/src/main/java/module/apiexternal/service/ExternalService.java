@@ -3,15 +3,14 @@ package module.apiexternal.service;
 import module.apicommon.enums.ErrorCode;
 import module.apicommon.exceptions.DataException;
 import module.apicommon.exceptions.NotFoundDataException;
+import module.apiexternal.dto.JsonMapper;
 import module.apiexternal.repository.ExternalConnector;
 import module.apiexternal.dto.ResponseJsonItem;
 import module.apiexternal.json.JsonData;
-import module.apiexternal.json.JsonItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,8 +21,10 @@ public class ExternalService {
 
     public List<ResponseJsonItem> getJsonData(String requestData) throws DataException, NotFoundDataException, URISyntaxException {
         JsonData body = externalConnector.getJsonData(requestData, JsonData.class);
+
         jsonDataValid(body);
-        return convertJsonItem(body.getItemList());
+
+        return JsonMapper.INSTANCE.toResponseJsonItem(body.getItemList());
     }
 
     private void jsonDataValid(JsonData body) throws DataException, NotFoundDataException {
@@ -32,13 +33,5 @@ public class ExternalService {
         if (code == ErrorCode.C00) return;
         if (code == ErrorCode.C03) throw new NotFoundDataException(); // 데이터가 없음
         throw new DataException(code); // 정상이 아니면 예외발생
-    }
-
-    private List<ResponseJsonItem> convertJsonItem(List<JsonItem> itemList) {
-        List<ResponseJsonItem> temp = new ArrayList<>(itemList.size());
-        for (JsonItem item : itemList) {
-            temp.add(new ResponseJsonItem(item));
-        }
-        return temp;
     }
 }

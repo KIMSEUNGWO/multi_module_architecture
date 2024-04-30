@@ -1,20 +1,19 @@
 package module.apiexternal.dto;
 
-import module.apiexternal.json.JsonItem;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class ResponseJsonItem {
 
-    private final String fcstDate;
-    private final String fcstTime;
-    private final String category;
-    private final String fcstValue;
+    private String fcstDate;
+    private String fcstTime;
+    private String category;
+    private String fcstValue;
 
-    public ResponseJsonItem(JsonItem item) {
-        this.fcstDate = item.getFcstDate();
-        this.fcstTime = item.getFcstTime();
-        this.category = item.getCategory();
-        this.fcstValue = item.getFcstValue();
-    }
 }
