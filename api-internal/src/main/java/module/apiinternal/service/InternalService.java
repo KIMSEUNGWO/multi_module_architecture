@@ -20,8 +20,8 @@ public class InternalService {
 
     private final InternalRepository internalRepository;
 
-    public List<ResultData> findData(String date) throws NotFoundDataException {
-        List<WeatherDate> findWeatherDate = internalRepository.findAll(convertDateTime(date));
+    public List<ResultData> findAllByDateTime(String date) throws NotFoundDataException {
+        List<WeatherDate> findWeatherDate = internalRepository.findAllByDateTime(convertDateTime(date));
 
         if (findWeatherDate.isEmpty()) throw new NotFoundDataException();
 

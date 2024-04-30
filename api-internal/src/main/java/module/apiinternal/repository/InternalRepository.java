@@ -12,7 +12,7 @@ public interface InternalRepository {
     void saveWeatherDate(WeatherDate saveWeatherDate);
     void saveAllWeather(Collection<Weather> weathers);
 
-    List<WeatherDate> findAll(LocalDateTime dateTime);
+    List<WeatherDate> findAllByDateTime(LocalDateTime dateTime);
 
     boolean existsByDateTime(LocalDateTime dateTime);
 }

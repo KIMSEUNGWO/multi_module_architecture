@@ -36,7 +36,7 @@ public class Controller {
     @GetMapping("/" + GET_URI)
     public ResponseEntity<ResponseMessage> findWeatherData(RequestDto requestData) throws NotFoundDataException {
 
-        List<ResultData> resultData = internalService.findData(requestData.getDate());
+        List<ResultData> resultData = internalService.findAllByDateTime(requestData.getDate());
 
         return ResponseEntity.ok(new ResponseData<>(OK, SUCCESS_SEARCH, resultData));
     }
