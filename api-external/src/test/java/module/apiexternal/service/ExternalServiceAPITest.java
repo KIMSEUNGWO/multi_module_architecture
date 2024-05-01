@@ -30,17 +30,16 @@ public class ExternalServiceAPITest {
     ExternalService externalService;
 
 
-    @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @Test
     @DisplayName("정상조회")
-    void getJsonDataApiTest(int minusDay) throws DataException, NotFoundDataException, URISyntaxException {
+    void getJsonDataApiTest() throws DataException, NotFoundDataException, URISyntaxException {
         /*
            3일전까지 데이터를 API 조회가 가능하지만,
-           시간에 따라 당일을 포함 해 3일전의 데이터가 존재하지 않을 가능성이 다수 존재하기 때문에
-           2일 전까지만 테스트
+           시간에 따라 당일을 포함 해 2~3일전의 데이터가 존재하지 않을 가능성이 다수 존재하기 때문에
+           1일 전만 테스트
         */
         // given
-        String currentDate = getCurrentDate(minusDay);
+        String currentDate = getCurrentDate(1);
 
         // when
         List<ResponseJsonItem> jsonData = externalService.getJsonData(currentDate);
