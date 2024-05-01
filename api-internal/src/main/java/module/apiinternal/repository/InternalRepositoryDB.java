@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -34,7 +36,9 @@ public class InternalRepositoryDB implements InternalRepository {
     @Override
     @Transactional(readOnly = true)
     public List<WeatherDate> findAllByDateTime(LocalDateTime dateTime) {
-        LocalDateTime endDate = dateTime.plusDays(1);
+        LocalDate localDate = dateTime.toLocalDate();
+        LocalTime localTime = LocalTime.of(23, 59, 59);
+        LocalDateTime endDate = LocalDateTime.of(localDate, localTime);
         return jpaWeatherDateRepository.findAllByDateTimeBetween(dateTime, endDate);
     }
 

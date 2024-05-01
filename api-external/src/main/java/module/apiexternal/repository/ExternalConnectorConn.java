@@ -28,7 +28,7 @@ public class ExternalConnectorConn implements ExternalConnector {
         StringBuilder sb = new StringBuilder(URL);  // URL
         sb.append("?serviceKey=" + SERVICE_KEY);    // Service Key
         sb.append("&pageNo=1");                     // 페이지번호
-        sb.append("&numOfRows=12");                 // 한 페이지 결과 수 / 1시간 마다 12개의 정보가 들어가있음
+        sb.append("&numOfRows=").append(12 * 24);   // 한 페이지 결과 수 / 1시간 마다 12개의 정보가 들어가있음
         sb.append("&dataType=JSON");                // 요청자료형식(XML/JSON) Default: XML
         sb.append("&base_date=").append(date);      // ‘21년 6월 28일발표
         sb.append("&base_time=0500");               // 05시 발표

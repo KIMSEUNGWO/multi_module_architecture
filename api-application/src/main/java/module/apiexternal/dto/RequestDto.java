@@ -40,7 +40,8 @@ public class RequestDto {
     private boolean isNaN(String date) {
         if (date.isBlank()) return true;
         for (int i = 0; i < date.length(); i++) {
-            if (Character.isAlphabetic(date.charAt(i))) return true;
+            int c = date.charAt(i) - '0';
+            if (c < 0 || c > 9) return true;
         }
         return false;
     }
